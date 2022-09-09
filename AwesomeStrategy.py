@@ -21,7 +21,7 @@ import pandas_ta as pta
 import freqtrade.vendor.qtpylib.indicators as qtpylib
 
 
-class AwesomeStrategy(IStrategy):
+class example(IStrategy):
     """
     This is a strategy template to get you started.
     More information in https://www.freqtrade.io/en/latest/strategy-customization/
@@ -46,7 +46,7 @@ class AwesomeStrategy(IStrategy):
     timeframe = '5m'
 
     # Can this strategy go short?
-    can_short: bool = False
+    can_short: bool = True
 
     # Minimal ROI designed for the strategy.
     # This attribute will be overridden if the config file contains "minimal_roi".
