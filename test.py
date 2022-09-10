@@ -21,7 +21,7 @@ import pandas_ta as pta
 import freqtrade.vendor.qtpylib.indicators as qtpylib
 
 
-class example(IStrategy):
+class TestEntry(IStrategy):
     """
     This is a strategy template to get you started.
     More information in https://www.freqtrade.io/en/latest/strategy-customization/
@@ -115,19 +115,6 @@ class example(IStrategy):
             }
         }
 
-    def informative_pairs(self):
-        """
-        Define additional, informative pair/interval combinations to be cached from the exchange.
-        These pair/interval combinations are non-tradeable, unless they are part
-        of the whitelist as well.
-        For more information, please consult the documentation
-        :return: List of tuples in the format (pair, interval)
-            Sample: return [("ETH/USDT", "5m"),
-                            ("BTC/USDT", "15m"),
-                            ]
-        """
-        return []
-
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
         Adds several different TA indicators to the given DataFrame
@@ -209,7 +196,7 @@ class example(IStrategy):
                            entry_tag: Optional[str], side: str, **kwargs) -> float:
         dataframe, last_updated = self.dp.get_analyzed_dataframe(pair=pair,
                                                                  timeframe=self.timeframe)
-        new_entryprice = dataframe['bollinger_10_lowerband'].iat[-1]
+        new_entryprice = dataframe['close'].iat[-1]
 
         return new_entryprice
 
@@ -218,7 +205,7 @@ class example(IStrategy):
                           current_profit: float, exit_tag: Optional[str], **kwargs) -> float:
         dataframe, last_updated = self.dp.get_analyzed_dataframe(pair=pair,
                                                                  timeframe=self.timeframe)
-        new_exitprice = dataframe['bollinger_10_upperband'].iat[-1]
+        new_exitprice = dataframe['close'].iat[-1]
 
         return new_exitprice
 
